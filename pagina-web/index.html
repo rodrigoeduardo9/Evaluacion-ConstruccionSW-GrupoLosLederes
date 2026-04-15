@@ -1,0 +1,1216 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Construcción de Software - Universidad Continental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e1b4b 50%, var(--dark) 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .university-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .university-badge i {
+            color: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-item i {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 5px 14px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .part-section {
+            background: linear-gradient(180deg, var(--dark) 0%, #1e1b4b 50%, var(--dark) 100%);
+        }
+
+        .part-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .part-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .part-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .part-title h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .part-badge {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .badge-part1 { background: rgba(99, 102, 241, 0.3); color: var(--primary); }
+        .badge-part2 { background: rgba(16, 185, 129, 0.3); color: var(--success); }
+        .badge-part3 { background: rgba(239, 68, 68, 0.3); color: var(--danger); }
+        .badge-part4 { background: rgba(245, 158, 11, 0.3); color: var(--warning); }
+
+        .part-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .part-content li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .part-content li i {
+            color: var(--accent);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .step {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .step:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 15px;
+            font-size: 1.2rem;
+        }
+
+        .step h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .team-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .team-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .gallery-section {
+            background: linear-gradient(135deg, #1e1b4b 0%, var(--dark) 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .gallery-overlay span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .timeline-section {
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 42%;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
+        .ml-models {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .model-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .model-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .model-card h4 i {
+            color: var(--accent);
+        }
+
+        .model-card ul {
+            list-style: none;
+        }
+
+        .model-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .model-card li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+
+        .footer {
+            background: var(--dark);
+            padding: 50px 0 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .repo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 20px;
+        }
+
+        .repo-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .nav-links { display: none; }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 60px;
+            }
+            .timeline-content { width: 100%; }
+            .timeline-number { left: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-info { gap: 15px; }
+            .info-item { padding: 10px 18px; font-size: 0.85rem; }
+            .section-title { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-university"></i> Universidad Continental
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#objetivo">Objetivo</a></li>
+                <li><a href="#partes">Partes</a></li>
+                <li><a href="#equipo">Equipo</a></li>
+                <li><a href="#evidencias">Evidencias</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero gradient-bg" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <div class="university-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Universidad Continental</span>
+                </div>
+                
+                <h1>Evaluación de <span>Construcción de Software</span></h1>
+                
+                <div class="hero-info">
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>Trabajo en Equipos (3-4 estudiantes)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>2 horas y 30 minutos</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Git + GitHub</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Machine Learning</span>
+                    </div>
+                </div>
+                
+                <p>Desarrollar, entrenar y evaluar modelos de Machine Learning para problemas de regresión y clasificación, trabajando de manera colaborativa con Git y GitHub.</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#partes" class="btn btn-primary">
+                        <i class="fas fa-list"></i> Ver Partes
+                    </a>
+                    <a href="#equipo" class="btn btn-outline">
+                        <i class="fas fa-users"></i> Equipo
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section class="section" id="objetivo">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-badge"><i class="fas fa-bullseye"></i> Objetivo</span>
+                <h2 class="section-title">Objetivo de la Evaluación</h2>
+                <p class="section-subtitle">Evaluar la capacidad del equipo para trabajar de manera colaborativa utilizando Git y GitHub, mientras desarrollan, entrenan y evalúan modelos de Machine Learning para problemas de regresión y clasificación.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card animate-on-scroll">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <h3>Dataset A: Regresión</h3>
+                    <p>Datos de precios de viviendas para modelos de regresión que predigan valores continuos.</p>
+                    <div class="card-tags">
+                        <span class="tag">Precios</span>
+                        <span class="tag">Regresión</span>
+                        <span class="tag">scikit-learn</span>
+                    </div>
+                </div>
+
+                <div class="card animate-on-scroll">
+                    <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Dataset B: Clasificación</h3>
+                    <p>Datos de historial de pacientes médicos para modelos de clasificación binaria.</p>
+                    <div class="card-tags">
+                        <span class="tag">Pacientes</span>
+                        <span class="tag">Clasificación</span>
+                        <span class="tag">Regresión Logística</span>
+                    </div>
+                </div>
+
+                <div class="card animate-on-scroll">
+                    <div class="card-icon"><i class="fab fa-python"></i></div>
+                    <h3>Tecnologías</h3>
+                    <p>Python con bibliotecas estándar: scikit-learn, pandas, matplotlib/seaborn.</p>
+                    <div class="card-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">pandas</span>
+                        <span class="tag">scikit-learn</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section part-section" id="partes">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-badge"><i class="fas fa-tasks"></i> Estructura</span>
+                <h2 class="section-title">Partes de la Evaluación</h2>
+                <p class="section-subtitle">Cuatro partes principales que evalúan el trabajo colaborativo y las habilidades técnicas del equipo.</p>
+            </div>
+
+            <div class="part-card animate-on-scroll">
+                <div class="part-header">
+                    <div class="part-title">
+                        <h3>PARTE 1: Arquitectura del Repositorio y Git</h3>
+                    </div>
+                    <span class="part-badge badge-part1">30 minutos - 4 puntos</span>
+                </div>
+                <div class="part-content">
+                    <p>El equipo debe establecer el entorno de trabajo colaborativo.</p>
+                    <ul>
+                        <li><i class="fas fa-github"></i> <strong>Creación del Repositorio:</strong> Un líder de equipo debe crear un repositorio público en GitHub llamado Evaluacion-ConstruccionSW-GrupoX y agregar a los demás como colaboradores.</li>
+                        <li><i class="fas fa-file-alt"></i> <strong>Estructura Inicial:</strong> Crear un archivo README.md con los nombres de los integrantes y un archivo .gitignore adecuado para Python.</li>
+                        <li><i class="fas fa-code-branch"></i> <strong>Estrategia de Ramas:</strong> La rama main debe estar bloqueada para commits directos (requerir Pull Requests). Crear una rama de desarrollo llamada develop. Cada integrante debe trabajar en ramas de características (ej. feat/regresion-simple, feat/clasificacion).</li>
+                    </ul>
+                </div>
+                <div class="workflow-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Crear Repo</h4>
+                        <p>Repositorio público en GitHub</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Agregar Colaboradores</h4>
+                        <p>Invitar a los compañeros</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Crear Ramas</h4>
+                        <p>develop y feature/*</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Proteger main</h4>
+                        <p>Requerir Pull Requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="part-card animate-on-scroll">
+                <div class="part-header">
+                    <div class="part-title">
+                        <h3>PARTE 2: Modelos de Regresión Continua</h3>
+                    </div>
+                    <span class="part-badge badge-part2">60 minutos - 7 puntos</span>
+                </div>
+                <div class="part-content">
+                    <p>Usando el Dataset A. Cada modelo debe desarrollarse en su respectiva rama y luego integrarse a develop mediante un Pull Request (PR).</p>
+                </div>
+                <div class="ml-models">
+                    <div class="model-card">
+                        <h4><i class="fas fa-chart-line"></i> Regresión Lineal Simple</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Seleccionar la variable independiente con mayor correlación con el precio</li>
+                            <li><i class="fas fa-check"></i> Entrenar el modelo</li>
+                            <li><i class="fas fa-check"></i> Graficar la línea de tendencia</li>
+                            <li><i class="fas fa-check"></i> Calcular MSE y R²</li>
+                        </ul>
+                    </div>
+                    <div class="model-card">
+                        <h4><i class="fas fa-project-diagram"></i> Regresión Lineal Múltiple</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Utilizar al menos 3 variables independientes</li>
+                            <li><i class="fas fa-check"></i> Entrenar el modelo</li>
+                            <li><i class="fas fa-check"></i> Mostrar coeficientes obtenidos</li>
+                            <li><i class="fas fa-check"></i> Comparar R² con modelo simple</li>
+                        </ul>
+                    </div>
+                    <div class="model-card">
+                        <h4><i class="fas fa-wave-square"></i> Regresión Polinómica</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Transformación polinómica (grado 2 o 3)</li>
+                            <li><i class="fas fa-check"></i> Entrenar el modelo</li>
+                            <li><i class="fas fa-check"></i> Graficar curva resultante</li>
+                            <li><i class="fas fa-check"></i> Justificar ajuste</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="part-card animate-on-scroll">
+                <div class="part-header">
+                    <div class="part-title">
+                        <h3>PARTE 3: Modelo de Clasificación</h3>
+                    </div>
+                    <span class="part-badge badge-part3">40 minutos - 6 puntos</span>
+                </div>
+                <div class="part-content">
+                    <p>Usando el Dataset B. Debe trabajarse en una rama feat/regresion-logistica.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Preprocesar los datos:</strong> Manejo de nulos y escalado de variables si es necesario</li>
+                        <li><i class="fas fa-check"></i> <strong>Entrenar modelo:</strong> Regresión Logística para predecir variable objetivo categórica (ej. "Enfermo" / "Sano")</li>
+                        <li><i class="fas fa-check"></i> <strong>Generar Matriz de Confusión</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Calcular métricas:</strong> Accuracy, Precision y Recall</li>
+                        <li><i class="fas fa-check"></i> Realizar commit, push y abrir PR hacia develop</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="part-card animate-on-scroll">
+                <div class="part-header">
+                    <div class="part-title">
+                        <h3>PARTE 4: Integración y Documentación</h3>
+                    </div>
+                    <span class="part-badge badge-part4">20 minutos - 3 puntos</span>
+                </div>
+                <div class="part-content">
+                    <ul>
+                        <li><i class="fas fa-code-merge"></i> <strong>Merge y Conflictos:</strong> Integrar todas las ramas a develop y finalmente hacer un PR hacia main</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> <strong>Resolver Conflictos:</strong> Si se generan conflictos (ej. en main.py o notebook), el equipo debe resolverlos adecuadamente dejando constancia en el historial</li>
+                        <li><i class="fas fa-file-code"></i> <strong>Documentación:</strong> Presentar informe final en PDF subido al aula virtual</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="equipo">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-badge"><i class="fas fa-users"></i> Equipo</span>
+                <h2 class="section-title">Nuestro Equipo</h2>
+                <p class="section-subtitle">Grupo de trabajo Colaborativo - Universidad Continental</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Uman Apaza Jhosseph Alfredo</h3>
+                    <p class="team-role">Desarrollador</p>
+                    <p class="team-desc">Especialista en modelos de regresión y gestión de ramas Git</p>
+                </div>
+
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Cussi Valenzuela Rodrigo Eduardo</h3>
+                    <p class="team-role">Líder de Proyecto</p>
+                    <p class="team-desc">Encargado del repositorio y coordinación del equipo</p>
+                </div>
+
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Loaiza Martinez Carlos Eduardo</h3>
+                    <p class="team-role">Especialista ML</p>
+                    <p class="team-desc">Desarrollo de modelos de clasificación y evaluación</p>
+                </div>
+
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Acurio Jara Paul Gonzalo</h3>
+                    <p class="team-role">Revisor de Código</p>
+                    <p class="team-desc">Code review, merge de Pull Requests y calidad de código</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://github.com/rodrigoeduardo9/Evaluacion-ConstruccionSW-GrupoLosLederes" target="_blank" class="repo-link">
+                    <i class="fab fa-github"></i>
+                    Ver Repositorio en GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section" id="evidencias">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-badge"><i class="fas fa-camera"></i> Evidencias</span>
+                <h2 class="section-title">Trabajo en Equipo</h2>
+                <p class="section-subtitle">Evidencias del trabajo colaborativo y desarrollo de modelos de Machine Learning</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/1.jpg" alt="Evidencia 1">
+                    <div class="gallery-overlay">
+                        <span>Historial de Commits</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/2.jpg" alt="Evidencia 2">
+                    <div class="gallery-overlay">
+                        <span>Branching Strategy</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/3.jpg" alt="Evidencia 3">
+                    <div class="gallery-overlay">
+                        <span>Modelo de Regresión</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/4.jpg" alt="Evidencia 4">
+                    <div class="gallery-overlay">
+                        <span>Gráficos de Resultados</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/5.jpg" alt="Evidencia 5">
+                    <div class="gallery-overlay">
+                        <span>Matriz de Confusión</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/6.jpg" alt="Evidencia 6">
+                    <div class="gallery-overlay">
+                        <span>Métricas de Evaluación</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/7.jpg" alt="Evidencia 7">
+                    <div class="gallery-overlay">
+                        <span>Pull Request</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/8.jpg" alt="Evidencia 8">
+                    <div class="gallery-overlay">
+                        <span>Trabajo Colaborativo</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/9.jpg" alt="Evidencia 9">
+                    <div class="gallery-overlay">
+                        <span>Integración Final</span>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="assets/images/10.jpg" alt="Evidencia 10">
+                    <div class="gallery-overlay">
+                        <span>Resultado Final</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section timeline-section" id="flujo">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-badge"><i class="fas fa-route"></i> Flujo</span>
+                <h2 class="section-title">Flujo de Trabajo Git</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h4>1. Rama main (Producción)</h4>
+                        <p>Bloqueada para commits directos. Solo acepta cambios via Pull Requests verificados.</p>
+                    </div>
+                    <div class="timeline-number">1</div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h4>2. Rama develop (Desarrollo)</h4>
+                        <p>Integración de todas las features. Punto de merge antes de producción.</p>
+                    </div>
+                    <div class="timeline-number">2</div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h4>3. Ramas feature/*</h4>
+                        <p>feat/regresion-simple, feat/regresion-multiple, feat/clasificacion, etc.</p>
+                    </div>
+                    <div class="timeline-number">3</div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h4>4. Pull Requests</h4>
+                        <p>Cada feature requiere PR hacia develop con code review.</p>
+                    </div>
+                    <div class="timeline-number">4</div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h4>5. Merge Final</h4>
+                        <p> develop → main con todos los modelos integrados y documentados.</p>
+                    </div>
+                    <div class="timeline-number">5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Universidad Continental - Curso: Construcción de Software - Evaluación Práctica en Equipos</p>
+            <p style="margin-top: 10px;">© 2026 - Grupo Los Lederes</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -30px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
