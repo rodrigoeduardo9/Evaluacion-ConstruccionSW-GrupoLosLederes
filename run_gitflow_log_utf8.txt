@@ -1,0 +1,29 @@
+﻿Rama actual:
+powershell : Reset branch 'pagina-web'
+En línea: 1 Carácter: 1
++ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\PAUL\UC\UC-20 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Reset branch 'pagina-web':String) 
+    [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Agregando archivos...
+[pagina-web 8b38e6b] avance pagina web
+ 6 files changed, 42 insertions(+)
+ create mode 100644 git_status.txt
+ create mode 100644 pagina-web/index.html
+ create mode 100644 run_gitflow.ps1
+ create mode 100644 run_gitflow_log.txt
+ create mode 100644 script_ran.txt
+ create mode 100644 verify_ps.txt
+Empujando a remoto...
+remote: 
+remote: Create a pull request for 'pagina-web' on GitHub by visiting:        
+remote:      https://github.com/rodrigoeduardo9/Evaluacion-ConstruccionSW-Grupo
+LosLederes/pull/new/pagina-web        
+remote: 
+To https://github.com/rodrigoeduardo9/Evaluacion-ConstruccionSW-GrupoLosLederes
+.git
+ * [new branch]      pagina-web -> pagina-web
+branch 'pagina-web' set up to track 'origin/pagina-web'.
+Finalizado.
